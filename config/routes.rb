@@ -1,7 +1,7 @@
 require 'api_constraints.rb'
 
 Rails.application.routes.draw do
-  devise_for :users
+
 
   namespace :api, defaults: { format: :json },
             constraints: { subdomain: 'api' },
@@ -10,5 +10,6 @@ Rails.application.routes.draw do
           constraints: ApiConstraints.new(version: 1, default: true) do
         resources :users, only: [:show]
     end
+    devise_for :users
   end
 end

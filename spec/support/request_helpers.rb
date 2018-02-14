@@ -14,7 +14,11 @@ module Request
 
     def api_response_format(format = 'application/json')
       request.headers['Accept'] = "#{request.headers['Accept']},#{format}"
-      request.headers['Content-Type'] = format
+      request.headers['Content-Type'] = format.to_s
+    end
+
+    def api_authorization_header(token)
+      request.headers['Authorization'] = token
     end
 
     def include_default_accept_headers

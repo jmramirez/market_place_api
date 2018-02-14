@@ -40,6 +40,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Request::JsonHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.include Request::HeadersHelpers, type: :controller
 

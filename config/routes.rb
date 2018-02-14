@@ -1,15 +1,14 @@
-require 'api_constraints.rb'
+require 'api_constraints'
 
 Rails.application.routes.draw do
-
+  devise_for :users
 
   namespace :api, defaults: { format: :json },
-            constraints: { subdomain: 'api' },
-            path: '/' do
+            path: '/' do # namespace as the folder in app/controllers/api # check available MIME types by typing `$ Mime::SET.collect(&:to_s)
     scope module: :v1,
           constraints: ApiConstraints.new(version: 1, default: true) do
-        resources :users, only: [:show, :create, :update, :destroy]
+      resources :users, only: [:show, :create, :update, :destroy]
+      resources :sessions, only: [:create, :destroy]
     end
-    devise_for :users
   end
 end

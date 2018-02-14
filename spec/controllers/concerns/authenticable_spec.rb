@@ -30,7 +30,7 @@ describe Authenticable do
     end
 
     it"render a json error message" do
-      expect(json_reponse[:errors]).to eql "Not authenticated"
+      expect(json_response[:errors]).to eql "Not authenticated"
     end
 
     it { should respond_with 401 }

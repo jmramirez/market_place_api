@@ -5,12 +5,18 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
   describe "GET #show" do
     before(:each) do
       @product = FactoryBot.create :product
-      get :show, params: { id: @product}
+      get :show, params: { id: @product.id}
     end
 
   it "returns the information about a reporter on a hash" do
     product_response = json_response[:product]
     expect(product_response[:title]).to eql @product.title
+  end
+
+
+  it " has the user as a embedded object" do
+    product_response = json_response[:product]
+    expect(product_response[:user][:email]).to eql @product.user.email
   end
 
   it { should respond_with 200 }
@@ -26,6 +32,13 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
     it "returns 4 records from the database" do
       products_response = json_response[:products]
       expect(products_response.count).to eq 4
+    end
+
+    it "returns the user object into each product" do
+      products_response = json_response[:products]
+      products_response.each do |product_response|
+        expect(product_response[:user]).to be_present
+      end
     end
 
     it { should respond_with 200 }

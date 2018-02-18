@@ -19,4 +19,70 @@ describe Product do
 
   it { should belong_to :user }
 
+  describe ".filter_by_title" do
+    before(:each) do
+      @product1 = FactoryBot.create :product, price: 100, title: "A Plasma TV"
+      @product2 = FactoryBot.create :product, price: 50, title: "Fastest Laptop"
+      @product3 = FactoryBot.create :product, price: 150, title: "CD Player"
+      @product4 = FactoryBot.create :product, price: 99, title: "LCD TV"
+    end
+
+    context "when a 'TV' title pattern is sent" do
+      it "returns the 2 products matching" do
+        expect(Product.filter_by_title("TV").count).to eq(2)
+      end
+
+      it "returns the products matching" do
+        expect(Product.filter_by_title("TV").sort).to match_array([@product1,@product4])
+      end
+    end
+  end
+
+
+  describe ".above_or_equal_to_price" do
+    before(:each) do
+      @product1 = FactoryBot.create :product, price: 100
+      @product2 = FactoryBot.create :product, price: 50
+      @product3 = FactoryBot.create :product, price: 150
+      @product4 = FactoryBot.create :product, price: 99
+    end
+
+    it "returns the products which are above or equal to price" do
+      expect(Product.above_or_equal_to_price(100).sort).to match_array([@product1,@product3])
+    end
+  end
+
+
+  describe ".below_or_equal_to_price" do
+    before(:each) do
+      @product1 = FactoryBot.create :product, price: 100
+      @product2 = FactoryBot.create :product, price: 50
+      @product3 = FactoryBot.create :product, price: 150
+      @product4 = FactoryBot.create :product, price: 99
+    end
+
+    it "returns the products which are below or equal to the price" do
+      expect(Product.below_or_equal_to_price(99).sort).to match_array([@product2,@product4])
+    end
+  end
+
+  describe ".recent" do
+    before(:each) do
+      @product4 = FactoryBot.create :product, price: 100
+      @product3 = FactoryBot.create :product, price: 50
+      @product2 = FactoryBot.create :product, price: 150
+      @product1 = FactoryBot.create :product, price: 99
+
+      @product3.update(price: 20)
+
+    end
+
+    it "returns the most updated records" do
+      expect(Product.recent).to match_array([@product1,@product4,@product2,@product3])
+    end
+  end
+
+
+
+
 end

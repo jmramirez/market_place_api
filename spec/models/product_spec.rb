@@ -11,6 +11,9 @@ describe Product do
 
   it { should_not be_published }
 
+  it { should have_many(:placements)}
+  it { should have_many(:orders).through(:placements)}
+
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :price }

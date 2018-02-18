@@ -14,6 +14,8 @@ describe User do
 
   it { should have_many(:products)}
 
+  it {should have_many(:orders)}
+
 
   describe "#products association" do
 

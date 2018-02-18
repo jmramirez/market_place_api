@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   before_create :generate_authentication_token!
   has_many :products, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   def generate_authentication_token!
     begin

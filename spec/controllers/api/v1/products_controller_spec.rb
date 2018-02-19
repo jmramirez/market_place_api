@@ -26,10 +26,9 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
   describe "GET #index" do
     before(:each) do
       4.times { FactoryBot.create :product}
-      get :index
     end
 
-    context "when is not receiving ay product_ids parameter" do
+    context "when is not receiving any product_ids parameter" do
       before(:each) do
         get :index
       end
@@ -46,6 +45,13 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
         expect(product_response[:user]).to be_present
       end
     end
+
+    it { expect(json_response).to have_key(:meta)}
+    it { expect(json_response[:meta]).to have_key(:pagination)}
+    it { expect(json_response[:meta][:pagination]).to have_key(:per_page)}
+    it { expect(json_response[:meta][:pagination]).to have_key(:total_pages)}
+    it { expect(json_response[:meta][:pagination]).to have_key(:total_objects)}
+
 
     it { should respond_with 200 }
     end

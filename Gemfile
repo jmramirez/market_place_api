@@ -14,6 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.4', '>= 4.4.1'
 gem 'active_model_serializers', '~> 0.10.7'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
 
 group :development, :test do

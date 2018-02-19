@@ -1,4 +1,3 @@
-# README
 
 <h1>APIS on Rails 2018</h1>
 
